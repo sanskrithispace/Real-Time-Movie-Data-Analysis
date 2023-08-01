@@ -210,7 +210,7 @@
                 },
                 "userProperties": [],
                 "typeProperties": {
-                    "notebookPath": "/Users/sanskrithi04@gmail.com/API to SQL"
+                    "notebookPath": "/Users/API to SQL"
                 },
                 "linkedServiceName": {
                     "referenceName": "DATABRICKS_LS",
