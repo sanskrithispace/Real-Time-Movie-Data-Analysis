@@ -1,0 +1,225 @@
+{
+    "name": "Notebook",
+    "properties": {
+        "activities": [
+            {
+                "name": "api call",
+                "description": "API to ADLS",
+                "type": "Copy",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "source": {
+                        "type": "RestSource",
+                        "httpRequestTimeout": "00:01:40",
+                        "requestInterval": "00.00:00:00.010",
+                        "requestMethod": "GET",
+                        "paginationRules": {
+                            "supportRFC5988": "true"
+                        }
+                    },
+                    "sink": {
+                        "type": "JsonSink",
+                        "storeSettings": {
+                            "type": "AzureBlobFSWriteSettings"
+                        },
+                        "formatSettings": {
+                            "type": "JsonWriteSettings"
+                        }
+                    },
+                    "enableStaging": false,
+                    "translator": {
+                        "type": "TabularTranslator",
+                        "mappings": [
+                            {
+                                "source": {
+                                    "path": "['adult']"
+                                },
+                                "sink": {
+                                    "name": "adult",
+                                    "type": "Boolean"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "['backdrop_path']"
+                                },
+                                "sink": {
+                                    "name": "backdrop_path",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "['id']"
+                                },
+                                "sink": {
+                                    "name": "id",
+                                    "type": "Int32"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "['title']"
+                                },
+                                "sink": {
+                                    "name": "title",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "['original_language']"
+                                },
+                                "sink": {
+                                    "name": "original_language",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "['original_title']"
+                                },
+                                "sink": {
+                                    "name": "original_title",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "['overview']"
+                                },
+                                "sink": {
+                                    "name": "overview",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "['poster_path']"
+                                },
+                                "sink": {
+                                    "name": "poster_path",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "['media_type']"
+                                },
+                                "sink": {
+                                    "name": "media_type",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "['genre_ids'][0]"
+                                },
+                                "sink": {
+                                    "name": "items",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "['popularity']"
+                                },
+                                "sink": {
+                                    "name": "popularity",
+                                    "type": "Double"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "['release_date']"
+                                },
+                                "sink": {
+                                    "name": "release_date",
+                                    "type": "DateTime"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "['video']"
+                                },
+                                "sink": {
+                                    "name": "video",
+                                    "type": "String"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "['vote_average']"
+                                },
+                                "sink": {
+                                    "name": "vote_average",
+                                    "type": "Double"
+                                }
+                            },
+                            {
+                                "source": {
+                                    "path": "['vote_count']"
+                                },
+                                "sink": {
+                                    "name": "vote_count",
+                                    "type": "Int32"
+                                }
+                            }
+                        ],
+                        "collectionReference": "$['results']"
+                    }
+                },
+                "inputs": [
+                    {
+                        "referenceName": "rest_api_json",
+                        "type": "DatasetReference"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "referenceName": "api_output_json",
+                        "type": "DatasetReference"
+                    }
+                ]
+            },
+            {
+                "name": "DATA BRICKS",
+                "type": "DatabricksNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "api call",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "policy": {
+                    "timeout": "0.12:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [],
+                "typeProperties": {
+                    "notebookPath": "/Users/sanskrithi04@gmail.com/API to SQL"
+                },
+                "linkedServiceName": {
+                    "referenceName": "DATABRICKS_LS",
+                    "type": "LinkedServiceReference"
+                }
+            }
+        ],
+        "annotations": [],
+        "lastPublishTime": "2023-07-20T18:31:12Z"
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}
