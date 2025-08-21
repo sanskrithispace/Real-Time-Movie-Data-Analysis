@@ -1,6 +1,12 @@
-# Real Time Movie Data Analysis
+# Streaming platform analytics
+Challenge
+Streaming platforms face difficulty identifying which movies will resonate with audiences and deserve promotional focus, amid vast and complex datasets of movie releases, ratings, and viewer engagement.
 
-Pulled live movie data from an API via Azure Data Factory. 
-Accumulated data kept in Azure Storage, cleaned, and processed in Azure Data Bricks. 
-Processed data saved in SQL Database. 
-Finalized the project by visually representing data with Power BI after importing from SQL Data
+Solution
+This project implements an end-to-end data pipeline using Azure Data Factory, Databricks, Azure Data Lake Storage, SQL Server, and Power BI to automate data ingestion, transformation, and visualization—enabling near real-time analytics of movie popularity and release timing trends.
+
+Benefits
+Faster report refresh times and responsive dashboards
+Clear insights to prioritize high-impact movies for promotion
+Data-driven scheduling recommendations based on seasonal audience engagement
+Tailored targeting through audience segmentation by content type
